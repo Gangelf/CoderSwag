@@ -7,7 +7,7 @@ import java.util.*
 /**
  * Created by Gangelf on 2/18/2018.
  */
-object DateService {
+object DataService {
 
     val categories = listOf(
             Category("SHIRTS", "shirtimage"),
