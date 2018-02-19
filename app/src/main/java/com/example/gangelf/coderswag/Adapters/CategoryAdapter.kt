@@ -19,20 +19,29 @@ class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapte
     val categories = categories
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val categorieView: View
+        val categoryView: View
+        val holder : ViewHolder
 
-        categorieView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
-        val categoryImage : ImageView = categorieView.findViewById(R.id.categoryImage)
-        val categoryName : TextView = categorieView.findViewById(R.id.categoryName)
+        //Create Views once. Use holder to set images and text. ViewHolder Pattern
+        if(convertView == null) {
+            categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+            holder = ViewHolder()
+            holder.categoryImage = categoryView.findViewById(R.id.categoryImage)
+            holder.categoryName = categoryView.findViewById(R.id.categoryName)
+
+            categoryView.tag = holder
+        } else {
+            holder = convertView.tag as ViewHolder
+            categoryView = convertView
+        }
 
         val category = categories[position]
 
         val resourceId = context.resources.getIdentifier(category.image, "drawable", context.packageName)
-        categoryImage.setImageResource(resourceId)
-        println(resourceId)
+        holder.categoryImage?.setImageResource(resourceId)
 
-        categoryName.text = category.title
-        return categorieView
+        holder.categoryName?.text = category.title
+        return categoryView
     }
 
     override fun getItem(position: Int): Any {
@@ -45,6 +54,12 @@ class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapte
 
     override fun getCount(): Int {
         return categories.count()
+    }
+
+    private class ViewHolder {
+        var categoryImage: ImageView? = null
+        var categoryName: TextView? = null
+
     }
 
 }
