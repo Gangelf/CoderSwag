@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.gangelf.coderswag.Model.Category
 import com.example.gangelf.coderswag.Model.Product
 import com.example.gangelf.coderswag.R
 
@@ -15,7 +16,7 @@ import com.example.gangelf.coderswag.R
  */
 
 //Custom RecyclerView Adapter
-class ProductAdapter(val context: Context, val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductHolder>(){
+class ProductAdapter(val context: Context, val products: List<Product>, val itemClick: (Product) -> Unit) : RecyclerView.Adapter<ProductAdapter.ProductHolder>(){
     override fun onBindViewHolder(holder: ProductHolder?, position: Int) {
         holder?.bindProduct(products[position], context)
     }
@@ -40,8 +41,9 @@ class ProductAdapter(val context: Context, val products: List<Product>) : Recycl
             productImage?.setImageResource(resourceId)
             productName?.text = product.title
             productPrice?.text = product.price
+
+            itemView.setOnClickListener { itemClick(product) }
+
         }
-
-
     }
 }
