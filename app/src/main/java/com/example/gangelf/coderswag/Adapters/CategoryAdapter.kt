@@ -19,7 +19,7 @@ class CategoryAdapter(val context: Context, val categories: List<Category>) : Ba
         val categoryView: View
         val holder : ViewHolder
 
-        //Create Views once. Use holder to set images and text. ViewHolder Pattern
+        //Create Views once. Use Holder to set images and text. ViewHolder Pattern
         if(convertView == null) {
             categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
             holder = ViewHolder()
